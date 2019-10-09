@@ -1,0 +1,12 @@
+drat-trim/drat-trim
+*.cnf
+*.proof
+*.core
+*.results
+out
+v1
+v2
+v3
+v4
+gen
+*~

@@ -1,0 +1,6 @@
+[submodule "cadical"]
+	path = cadical
+	url = https://github.com/arminbiere/cadical
+[submodule "drat-trim"]
+	path = drat-trim
+	url = https://github.com/marijnheule/drat-trim
