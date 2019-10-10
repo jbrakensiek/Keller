@@ -1,6 +1,6 @@
 # Keller
 
-This is the code we used to prove Keller's conjecture in dimension 7. Please see our paper TODO LINK to understand the theoretical justifications.
+This is the code we used to prove Keller's conjecture in dimension 7. Please see our [paper](http://arxiv.org/abs/1910.03740) to understand the theoretical justifications.
 
 ## Getting started
 
