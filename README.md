@@ -68,7 +68,7 @@ Generates the CNF files
 
 `echo "N S T cube1 ... cubeT" | ./cnfgen6`
 
-`cubei` is a string in the alphabet `{0, 1, ... 2S-1, *}`, where `*` denotes an undetermined value in the set `{0, 1, ... S-1}`. Note the cube description only works for S<=5.
+`cubei` is N space-separated numbers in {-1, 0, 1, ... 2S-1}, where `-1` denotes an undetermined value in the set `{0, 1, ... S-1}`. Note that to keep things nonnegative, all coordinates in the paper are translated by S-1.
 
 The output is a CNF file which can be directly read by CaDiCaL.
 
