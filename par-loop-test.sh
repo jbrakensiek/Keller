@@ -9,6 +9,6 @@ awk 'NR % '$NMAX' == '$NODE'' $JOBS > $SUBJ
 
 for (( i=0; i<$PRLL; i++ ))
 do
-  ~/Keller/loop-test.sh $SUBJ $i $PRLL $SABS &
+  ~/Keller-private/loop-test.sh $SUBJ $i $PRLL $SABS &
 done
 wait

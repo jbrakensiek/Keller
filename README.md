@@ -1,6 +1,6 @@
 # Keller
 
-This is the code we used to prove Keller's conjecture in dimension 7. Please see our [paper](http://arxiv.org/abs/1910.03740) to understand the theoretical justifications.
+This is the code we used to prove Keller's conjecture in dimension 7. Please see our [paper](https://arxiv.org/abs/1910.03740) to understand the theoretical justifications.
 
 ## Getting started
 
@@ -8,7 +8,7 @@ To clone the repo, run
 
 `git clone --recursive https://github.com/jbrakensiek/Keller.git`
 
-Run `make all` to get the essential files. You should also configure [CaDiCaL](https://github.com/arminbiere/cadical) and [DRAT-trim](https://github.com/marijnheule/drat-trim).
+Run `make all` to get the essential files. You should also configure [CaDiCaL](https://github.com/arminbiere/cadical) and [DRAT-trim](https://github.com/marijnheule/drat-trim) and [ACL2](https://www.cs.utexas.edu/users/moore/acl2/).
 
 ## Codebase overview
 
@@ -26,6 +26,12 @@ Creates a list of jobs of the form `X Y 0`, where X ranges from 0 to 87 (the lis
 
 `python jobs4.py > jobs4.txt`
 
+#### `jobs6.py`
+
+Creates a list of jobs of the form `X Y 0`, where X ranges from 0 to 89 (the list of tilings for S=4) and Y ranges from 1 to 1378 (inequivalent 4x2 patterns). These correspond the cases analyzed for G_{7,4}.
+
+`python jobs6.py > jobs6.txt`
+
 #### `test3.sh`
 
 Solves a formula with s = 3 and produces a proof of unsatisfiability (in case of UNSAT). This proof is verified using the DRAT-trim proof checker. The $WORK parameter specifies the directory in which the logs files are stored. 
@@ -38,6 +44,12 @@ Solves a formula with s = 4 and produces a proof of unsatisfiability (in case of
 
 `bash test4.sh X Y 0`
 
+#### `test7.sh`
+
+Solves a formula with s = 7 and produces a proof of unsatisfiability (in case of UNSAT). This proof is verified using the DRAT-trim proof checker. The $WORK parameter specifies the directory in which the logs files are stored.
+
+`bash test7.sh X Y 0`
+
 #### `loop-test.sh`
 
 This script runs multiple test3.sh or test4.sh runs (depending on $4) on a single CPU. Its first three arguments are 1) a jobs file, 2) the starting line in that file and 3) a number of other cores working on the same files. The number of lines that are skipped equals the number of other cores.
@@ -48,23 +60,27 @@ This script launches multiples loop-test.sh calls with the same jobs files, the 
 
 ### C
 
-#### `cnfgen.c`
+#### `six/cnfgen6.c`
 
 Generates the CNF files
 
-`make cnfgen`
+`make cnfgen6`
 
-`echo "N S T cube1 ... cubeT" | ./cnfgen`
+`echo "N S T cube1 ... cubeT" | ./cnfgen6`
 
 `cubei` is a string in the alphabet `{0, 1, ... 2S-1, *}`, where `*` denotes an undetermined value in the set `{0, 1, ... S-1}`. Note the cube description only works for S<=5.
 
 The output is a CNF file which can be directly read by CaDiCaL.
 
-#### `cubecover.c`
+#### `six/cubecover6.c`
 
-Generates the 67 inequivalent coverings of \[1/2,7/2)^3 that contain the cube (3,3,3) for S=3 and the 88 inequivalent coverings of \[1,5)^3 that contain the cube (4,4,4) for S=4
+Generates the 67 inequivalent coverings for S=3
 
-`make cubecover`
+Generates the 88 inequivalent coverings for S=4
+
+Generates the 90 inequivalent coverings for S=6
+
+`make cubecover6`
 
 #### `symbreak3.c` 
 
@@ -80,14 +96,21 @@ Has the same function as `symbreak3.c`, but for S=4.
 `make symbreak4`
 `echo "X Y 0" | ./symbreak4`
 
-#### `table2tex.c`
+#### `six/symbreak6.c`
 
-Creates Tables 1 and 2 in the paper.
+Has the same function as `symbreak3.c`, but for S=6.
+
+`make symbreak6`
+`echo "X Y 0" | ./symbreak6`
+
+#### `six/table2tex6.c`
+
+Creates Tables 1-3 in the paper.
 
 `make table2tex`  
 `echo "S" | ./cubecover 2> /dev/null | ./table2tex`
 
-where S=3 for Table 1 and S=4 for Table 2
+where S=3 for Table 1 and S=4 for Table 2 and S=6 for Table 3
 
 ### Fortran
 
@@ -135,4 +158,4 @@ Joshua Brakensiek, Marijn Heule, John Mackey. _The Resolution of Keller's Conjec
 
 ## Acknowledgments
 
-The authors acknowledge the [Texas Advanced Computing Center](http://www.tacc.utexas.edu) (TACC)  at The University of Texas at Austin for providing HPC resources that have contributed to the research results reported within this paper. We thank William Cooperman for helpful discussions on a previous attempt at programming simulations to study the half-integral case. We thank Xinyu Wu for making this collaboration possible.
+The authors acknowledge the [Texas Advanced Computing Center](http://www.tacc.utexas.edu) (TACC)  at The University of Texas at Austin for providing HPC resources that have contributed to the research results reported within this paper. We thank Andrzej Kisielewicz for valuable comments on an earlier version of the manuscript. We thank William Cooperman for helpful discussions on a previous attempt at programming simulations to study the half-integral case. We thank Xinyu Wu for making this collaboration possible.

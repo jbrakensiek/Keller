@@ -3,11 +3,11 @@
 DIR=~/Keller-private
 #DIR=`pwd`
 OUT=/tmp
-POST=three
+POST=six
 
 echo "TEST: $1 $2 $3"
-echo "$1 $2 $3" | $DIR/symbreak3 | $DIR/cnfgen6 > $OUT/$1_$2_$3_$POST.cnf 2> $OUT/$1_$2_$3_gen_$POST.log
-~/cadical/build/cadical --unsat $OUT/$1_$2_$3_$POST.cnf $OUT/$1_$2_$3_$POST.drat &> $OUT/$1_$2_$3_solve_$POST.log
+echo "$1 $2 $3" | $DIR/symbreak6 | $DIR/cnfgen6 > $OUT/$1_$2_$3_$POST.cnf 2> $OUT/$1_$2_$3_gen_$POST.log
+~/cadical/build/cadical --scorefactor=990 --unsat $OUT/$1_$2_$3_$POST.cnf $OUT/$1_$2_$3_$POST.drat &> $OUT/$1_$2_$3_solve_$POST.log
 ~/drat-trim/drat-trim $OUT/$1_$2_$3_$POST.cnf $OUT/$1_$2_$3_$POST.drat -L $OUT/$1_$2_$3_$POST.clrat -C -D &> $OUT/$1_$2_$3_check_$POST.log
 
 # start ACL2 PART
@@ -22,3 +22,4 @@ cat $OUT/$1_$2_$3_solve_$POST.log | awk '/UNK/ {printf "c %i %i %i %s ", '$1', '
 cat $OUT/$1_$2_$3_check_$POST.log | grep "VERIFIED"
 zip $WORK/log/Keller/$1_$2_$3_$POST.zip $OUT/$1_$2_$3_*.log
 rm $OUT/$1_$2_$3_*_$POST.* $OUT/$1_$2_$3_$POST.*
+

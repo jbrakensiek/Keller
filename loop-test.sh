@@ -6,5 +6,5 @@ SABS=$4
 DIR=/tmp
 
 awk 'NR % '$STEP' == '$INIT'' $JOBS > $DIR/Keller-$INIT-$STEP
-cd ~/Keller
+cd ~/Keller-private
 xargs -n 3 bash ./test$SABS.sh < $DIR/Keller-$INIT-$STEP

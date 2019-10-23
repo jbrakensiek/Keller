@@ -15,7 +15,15 @@ void print_cubes() {
 
     for (int i = 0; i < L; i++) {
         assert(strlen(cubes[i]) == N);
-        printf("%s\n", cubes[i]);
+        for (int j = 0; j < N; j++) {
+            if (cubes[i][j] == '*') {
+                printf("-1");
+            }
+            else
+                printf("%c", cubes[i][j]);
+            if (j < N-1) printf(" ");
+            else printf("\n");
+        }
     }
 }
 
@@ -56,14 +64,13 @@ void generate_cubes() {
         int len;
         fscanf(cubecover, "%d", &len);
         for (int j = 0; j < len; j++) {
-            char s[5];
-            fscanf(cubecover, "%s", s);
-            assert(strlen(s) == 3);
+            int s[5];
+            fscanf(cubecover, "%d %d %d", &s[0], &s[1], &s[2]);
             if (index == i) {
                 strncpy(cubes[L], "70*****", N+1);
-                cubes[L][4] = s[0];
-                cubes[L][5] = s[1];
-                cubes[L][6] = s[2];
+                cubes[L][4] = s[0] + '0';
+                cubes[L][5] = s[1] + '0';
+                cubes[L][6] = s[2] + '0';
                 L++;
             }
         }
